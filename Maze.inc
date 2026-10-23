@@ -23,3 +23,19 @@ PlayerInfo STRUCT
     KeysHeld  DWORD 0           ; keys picked up so far
     MovesLeft DWORD 0           ; moves remaining
 PlayerInfo ENDS
+
+EXTERNDEF Player:PlayerInfo     ; defined in Maze.asm
+EXTERNDEF KeysTotal:DWORD       ; defined in Maze.asm
+
+GetCell PROTO                   ; Maze.asm
+SetCell PROTO
+FindPlayer PROTO
+CountKeys PROTO
+ReadMove PROTO                  ; Logic.asm
+TryMove PROTO
+DrawMaze PROTO                  ; Render.asm
+DrawCell PROTO
+DrawPlayer PROTO
+DrawHud PROTO
+ShowWin PROTO
+ShowLose PROTO
