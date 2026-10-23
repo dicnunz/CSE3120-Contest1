@@ -1,0 +1,6 @@
+# Keep text files as LF inside git, but check out the MASM and batch
+# files with Windows (CRLF) line endings
+* text=auto
+*.asm text eol=crlf
+*.inc text eol=crlf
+*.bat text eol=crlf
