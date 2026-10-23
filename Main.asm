@@ -7,7 +7,7 @@
 ; Revisions:
 ; Date:                  Modified by:
 
-INCLUDE Irvine32.inc
+INCLUDE Maze.inc
 
 .code
 main PROC
