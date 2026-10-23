@@ -11,6 +11,12 @@ INCLUDE Maze.inc
 
 .code
 main PROC
+    call FindPlayer             ; find the @ and save the start position
+    call CountKeys              ; count the K's in the maze
+    mov Player.MovesLeft,MoveLimit
+    call DrawMaze
+    call DrawPlayer
+    call DrawHud
     exit
 main ENDP
 END main
