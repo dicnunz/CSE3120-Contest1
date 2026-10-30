@@ -2,6 +2,8 @@
 
 INCLUDE Maze.inc
 
+PlayerChar = '@'                ; how the player looks on the screen
+
 .code
 DrawMaze PROC                   ; stub
     ret
@@ -11,7 +13,19 @@ DrawCell PROC                   ; stub
     ret
 DrawCell ENDP
 
-DrawPlayer PROC                 ; stub
+;-----------------------------------------------------
+DrawPlayer PROC USES eax edx
+;
+; Draws the player at its current position.
+; Receives: nothing
+; Returns: nothing
+; Requires: Player.Row and Player.Col hold the position
+;-----------------------------------------------------
+    mov dh,Player.Row
+    mov dl,Player.Col
+    call Gotoxy
+    mov al,PlayerChar
+    call WriteChar
     ret
 DrawPlayer ENDP
 
