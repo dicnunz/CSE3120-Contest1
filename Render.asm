@@ -4,6 +4,9 @@ INCLUDE Maze.inc
 
 PlayerChar = '@'                ; how the player looks on the screen
 
+.data
+KeysLabel  BYTE "Keys: ",0
+
 .code
 DrawMaze PROC                   ; stub
     ret
@@ -29,7 +32,20 @@ DrawPlayer PROC USES eax edx
     ret
 DrawPlayer ENDP
 
-DrawHud PROC                    ; stub
+;-----------------------------------------------------
+DrawHud PROC USES eax edx
+;
+; Shows the keys and moves left on the line under the maze.
+; Receives: nothing
+; Returns: nothing
+;-----------------------------------------------------
+    mov dh,MazeRows + 1         ; the line under the maze
+    mov dl,0
+    call Gotoxy
+    mov edx,OFFSET KeysLabel
+    call WriteString
+    mov eax,Player.KeysHeld
+    call WriteDec
     ret
 DrawHud ENDP
 
