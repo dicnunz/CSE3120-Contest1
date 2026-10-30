@@ -6,6 +6,7 @@ PlayerChar = '@'                ; how the player looks on the screen
 
 .data
 KeysLabel  BYTE "Keys: ",0
+MovesLabel BYTE "   Moves left: ",0
 
 .code
 DrawMaze PROC                   ; stub
@@ -46,6 +47,16 @@ DrawHud PROC USES eax edx
     call WriteString
     mov eax,Player.KeysHeld
     call WriteDec
+    mov al,'/'
+    call WriteChar
+    mov eax,KeysTotal
+    call WriteDec
+    mov edx,OFFSET MovesLabel
+    call WriteString
+    mov eax,Player.MovesLeft
+    call WriteDec
+    mov al,' '                  ; erases the old digit when 10 drops to 9
+    call WriteChar
     ret
 DrawHud ENDP
 
