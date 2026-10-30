@@ -17,6 +17,23 @@ main PROC
     call DrawMaze
     call DrawPlayer
     call DrawHud
+GameLoop:
+    call ReadMove               ; AL = w, a, s, d or q
+    cmp al,'q'
+    je QuitGame
+    call TryMove                ; AL = GameRunning, GameWon or GameLost
+    call DrawHud
+    cmp al,GameWon
+    je PlayerWon
+    cmp al,GameLost
+    je PlayerLost
+    jmp GameLoop                ; still running, read the next move
+PlayerWon:
+    call ShowWin
+    jmp QuitGame
+PlayerLost:
+    call ShowLose
+QuitGame:
     exit
 main ENDP
 END main
