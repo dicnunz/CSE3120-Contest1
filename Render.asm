@@ -9,7 +9,25 @@ KeysLabel  BYTE "Keys: ",0
 MovesLabel BYTE "   Moves left: ",0
 
 .code
-DrawMaze PROC                   ; stub
+;-----------------------------------------------------
+DrawMaze PROC USES edx
+;
+; Clears the screen and draws every cell of the maze.
+; Receives: nothing
+; Returns: nothing
+;-----------------------------------------------------
+    call Clrscr
+    mov dh,0                    ; start at the top row
+RowLoop:
+    mov dl,0                    ; start each row at column 0
+ColLoop:
+    call DrawCell
+    inc dl
+    cmp dl,MazeCols
+    jb ColLoop
+    inc dh
+    cmp dh,MazeRows
+    jb RowLoop
     ret
 DrawMaze ENDP
 
