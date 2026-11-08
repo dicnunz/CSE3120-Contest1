@@ -13,7 +13,16 @@ DrawMaze PROC                   ; stub
     ret
 DrawMaze ENDP
 
-DrawCell PROC                   ; stub
+;-----------------------------------------------------
+DrawCell PROC USES eax
+;
+; Redraws one cell of the maze from MazeData.
+; Receives: DH = row, DL = col
+; Returns: nothing
+;-----------------------------------------------------
+    call Gotoxy                 ; screen row and col match the maze
+    call GetCell                ; AL = character in that cell
+    call WriteChar
     ret
 DrawCell ENDP
 
