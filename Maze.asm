@@ -36,7 +36,21 @@ GetCell PROC USES ebx esi
     ret
 GetCell ENDP
 
-SetCell PROC                    ; stub
+;-----------------------------------------------------
+; Writes one character into the row-major maze.
+; Receives: DH = row, DL = column, AL = character
+; Returns: nothing; preserves all registers
+; Requires: row < MazeRows, column < MazeCols
+;-----------------------------------------------------
+SetCell PROC USES eax ebx ecx esi
+    mov cl,al                  ; save the character before MUL
+    mov al,dh
+    mov bl,MazeCols
+    mul bl
+    movzx esi,ax
+    movzx ebx,dl
+    add esi,ebx
+    mov MazeData[esi],cl
     ret
 SetCell ENDP
 
