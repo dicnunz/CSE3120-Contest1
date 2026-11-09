@@ -76,7 +76,21 @@ PlayerNotFound:
     ret
 FindPlayer ENDP
 
-CountKeys PROC                  ; stub
+; Counts key characters in the maze and stores the total.
+; Receives: nothing
+; Returns: nothing; preserves all registers
+; Requires: MazeData contains MazeRows * MazeCols bytes
+CountKeys PROC USES ecx esi
+    mov KeysTotal,0
+    mov esi,OFFSET MazeData
+    mov ecx,MazeRows * MazeCols
+CountKeyLoop:
+    cmp BYTE PTR [esi],KeyChar
+    jne NextKeyCell
+    inc KeysTotal
+NextKeyCell:
+    inc esi
+    loop CountKeyLoop
     ret
 CountKeys ENDP
 
