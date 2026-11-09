@@ -27,7 +27,23 @@ GotKey:
     ret
 ReadMove ENDP
 
-TryMove PROC                    ; stub, the game keeps running
+;-----------------------------------------------------
+TryMove PROC USES edx
+;
+; Moves the player one cell in the direction of the key.
+; Receives: AL = w, a, s or d
+; Returns: AL = GameRunning, GameWon or GameLost
+;-----------------------------------------------------
+    mov dh,Player.Row           ; DH, DL become the cell to move into
+    mov dl,Player.Col
+    cmp al,'w'
+    jne NotUp
+    dec dh                      ; w moves up one row
+NotUp:
+    xchg dh,Player.Row          ; Player gets the new cell, DH, DL the old one
+    xchg dl,Player.Col
+    call DrawCell               ; redraw the cell the player left
+    call DrawPlayer
     mov al,GameRunning
     ret
 TryMove ENDP
