@@ -28,7 +28,7 @@ GotKey:
 ReadMove ENDP
 
 ;-----------------------------------------------------
-TryMove PROC USES edx
+TryMove PROC USES ebx edx
 ;
 ; Moves the player one cell in the direction of the key.
 ; Receives: AL = w, a, s or d
@@ -40,10 +40,27 @@ TryMove PROC USES edx
     jne NotUp
     dec dh                      ; w moves up one row
 NotUp:
+    cmp al,'s'
+    jne NotDown
+    inc dh                      ; s moves down one row
+NotDown:
+    cmp al,'a'
+    jne NotLeft
+    dec dl                      ; a moves left one column
+NotLeft:
+    cmp al,'d'
+    jne NotRight
+    inc dl                      ; d moves right one column
+NotRight:                       ; the outer wall keeps DH, DL inside the maze
+    call GetCell                ; AL = what is in that cell
+    mov bl,al                   ; BL keeps the cell for the checks below
+    cmp bl,WallChar
+    je StillRunning             ; walls block the move and cost nothing
     xchg dh,Player.Row          ; Player gets the new cell, DH, DL the old one
     xchg dl,Player.Col
     call DrawCell               ; redraw the cell the player left
     call DrawPlayer
+StillRunning:
     mov al,GameRunning
     ret
 TryMove ENDP
