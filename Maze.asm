@@ -54,7 +54,25 @@ SetCell PROC USES eax ebx ecx esi
     ret
 SetCell ENDP
 
-FindPlayer PROC                 ; stub
+; Finds the start position and replaces its marker with floor.
+; Receives: nothing
+; Returns: nothing; preserves all registers
+; Requires: at most one StartChar in MazeData
+FindPlayer PROC USES eax ebx ecx edi
+    mov edi,OFFSET MazeData
+    mov ecx,MazeRows * MazeCols
+    mov al,StartChar
+    cld
+    repne scasb
+    jne PlayerNotFound
+    mov BYTE PTR [edi - 1],FloorChar
+    sub edi,OFFSET MazeData + 1 ; convert past-marker pointer to index
+    mov eax,edi
+    mov bl,MazeCols
+    div bl                     ; AL = row, AH = column
+    mov Player.Row,al
+    mov Player.Col,ah
+PlayerNotFound:
     ret
 FindPlayer ENDP
 
