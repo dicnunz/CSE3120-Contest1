@@ -56,6 +56,18 @@ NotRight:                       ; the outer wall keeps DH, DL inside the maze
     mov bl,al                   ; BL keeps the cell for the checks below
     cmp bl,WallChar
     je StillRunning             ; walls block the move and cost nothing
+    cmp bl,ExitChar
+    jne OpenCell
+    mov eax,Player.KeysHeld
+    cmp eax,KeysTotal
+    jb StillRunning             ; the exit stays locked until every key is held
+OpenCell:
+    cmp bl,KeyChar
+    jne MovePlayer
+    inc Player.KeysHeld
+    mov al,FloorChar
+    call SetCell                ; the key leaves the maze once it is picked up
+MovePlayer:
     xchg dh,Player.Row          ; Player gets the new cell, DH, DL the old one
     xchg dl,Player.Col
     call DrawCell               ; redraw the cell the player left
