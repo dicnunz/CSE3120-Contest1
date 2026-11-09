@@ -8,6 +8,7 @@ PlayerChar = '@'                ; how the player looks on the screen
 KeysLabel  BYTE "Keys: ",0
 MovesLabel BYTE "   Moves left: ",0
 WinMsg     BYTE "You collected every key and escaped!",0
+LoseMsg    BYTE "Out of moves. The maze wins this time.",0
 
 .code
 ;-----------------------------------------------------
@@ -104,7 +105,19 @@ ShowWin PROC USES edx
     ret
 ShowWin ENDP
 
-ShowLose PROC                   ; stub
+;-----------------------------------------------------
+ShowLose PROC USES edx
+;
+; Prints the lose message under the HUD line.
+; Receives: nothing
+; Returns: nothing
+;-----------------------------------------------------
+    mov dh,MazeRows + 3         ; same place as the win message
+    mov dl,0
+    call Gotoxy
+    mov edx,OFFSET LoseMsg
+    call WriteString
+    call Crlf
     ret
 ShowLose ENDP
 
