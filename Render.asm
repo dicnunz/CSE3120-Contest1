@@ -7,6 +7,7 @@ PlayerChar = '@'                ; how the player looks on the screen
 .data
 KeysLabel  BYTE "Keys: ",0
 MovesLabel BYTE "   Moves left: ",0
+WinMsg     BYTE "You collected every key and escaped!",0
 
 .code
 ;-----------------------------------------------------
@@ -87,7 +88,19 @@ DrawHud PROC USES eax edx
     ret
 DrawHud ENDP
 
-ShowWin PROC                    ; stub
+;-----------------------------------------------------
+ShowWin PROC USES edx
+;
+; Prints the win message under the HUD line.
+; Receives: nothing
+; Returns: nothing
+;-----------------------------------------------------
+    mov dh,MazeRows + 3         ; leave a blank line under the HUD
+    mov dl,0
+    call Gotoxy
+    mov edx,OFFSET WinMsg
+    call WriteString
+    call Crlf                   ; so the exit text starts on a new line
     ret
 ShowWin ENDP
 
