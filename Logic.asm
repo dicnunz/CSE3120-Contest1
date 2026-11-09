@@ -3,8 +3,15 @@
 INCLUDE Maze.inc
 
 .code
-ReadMove PROC                   ; stub, always says quit for now
-    mov al,'q'
+;-----------------------------------------------------
+ReadMove PROC
+;
+; Waits for the player to press a key.
+; Receives: nothing
+; Returns: AL = the key in lowercase (EAX changed)
+;-----------------------------------------------------
+    call ReadChar               ; AL = ASCII code of the key
+    or al,00100000b             ; lowercase, so W and w are the same
     ret
 ReadMove ENDP
 
