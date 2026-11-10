@@ -29,7 +29,7 @@ GetCell PROC USES ebx esi
 ;-----------------------------------------------------
     mov al,dh
     mov bl,MazeCols
-    mul bl                     ; AX = row * MazeCols; DX unchanged
+    mul bl                      ; AX = row * MazeCols; DX unchanged
     movzx esi,ax
     movzx ebx,dl
     add esi,ebx
@@ -42,10 +42,10 @@ SetCell PROC USES eax ebx ecx esi
 ;
 ; Writes one character into the row-major maze.
 ; Receives: DH = row, DL = column, AL = character
-; Returns: nothing; preserves all registers
+; Returns: nothing
 ; Requires: row < MazeRows, column < MazeCols
 ;-----------------------------------------------------
-    mov cl,al                  ; save the character before MUL
+    mov cl,al                   ; save the character before MUL
     mov al,dh
     mov bl,MazeCols
     mul bl
@@ -61,7 +61,7 @@ FindPlayer PROC USES eax ebx ecx edi
 ;
 ; Finds the start position and replaces its marker with floor.
 ; Receives: nothing
-; Returns: nothing; preserves all registers
+; Returns: nothing
 ; Requires: at most one StartChar in MazeData
 ;-----------------------------------------------------
     mov edi,OFFSET MazeData
@@ -74,7 +74,7 @@ FindPlayer PROC USES eax ebx ecx edi
     sub edi,OFFSET MazeData + 1 ; convert past-marker pointer to index
     mov eax,edi
     mov bl,MazeCols
-    div bl                     ; AL = row, AH = column
+    div bl                      ; AL = row, AH = column
     mov Player.Row,al
     mov Player.Col,ah
 PlayerNotFound:
@@ -86,7 +86,7 @@ CountKeys PROC USES ecx esi
 ;
 ; Counts key characters in the maze and stores the total.
 ; Receives: nothing
-; Returns: nothing; preserves all registers
+; Returns: nothing
 ; Requires: MazeData contains MazeRows * MazeCols bytes
 ;-----------------------------------------------------
     mov KeysTotal,0

@@ -2,10 +2,9 @@
 
 ; Program Description: Main module of a text maze game. The player
 ;   collects every key and reaches the exit before running out of moves.
-; Author: Nicholas Welsh
+; Authors: Nicholas Dunzelman and Nicholas Welsh
 ; Creation Date: 10/23/2026
-; Revisions:
-; Date:                  Modified by:
+; Revisions: see the commit history on GitHub
 
 INCLUDE Maze.inc
 

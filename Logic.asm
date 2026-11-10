@@ -32,7 +32,7 @@ TryMove PROC USES ebx edx
 ;
 ; Moves the player one cell in the direction of the key.
 ; Receives: AL = w, a, s or d
-; Returns: AL = GameRunning, GameWon or GameLost
+; Returns: AL = GameRunning, GameWon or GameLost (EAX changed)
 ;-----------------------------------------------------
     mov dh,Player.Row           ; DH, DL become the cell to move into
     mov dl,Player.Col
