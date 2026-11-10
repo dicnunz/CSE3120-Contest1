@@ -72,8 +72,19 @@ MovePlayer:
     xchg dl,Player.Col
     call DrawCell               ; redraw the cell the player left
     call DrawPlayer
+    dec Player.MovesLeft        ; every move that is not blocked costs one
+    cmp bl,ExitChar
+    je PlayerWins               ; walking onto the open exit wins
+    cmp Player.MovesLeft,0
+    je PlayerLoses
 StillRunning:
     mov al,GameRunning
+    ret
+PlayerWins:
+    mov al,GameWon
+    ret
+PlayerLoses:
+    mov al,GameLost
     ret
 TryMove ENDP
 
