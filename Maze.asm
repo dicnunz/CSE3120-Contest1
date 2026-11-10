@@ -1,4 +1,4 @@
-; Maze data and the procedures that read and change it    (Maze.asm)
+; Maze data and the procedures that use it        (Maze.asm)
 
 INCLUDE Maze.inc
 
@@ -20,12 +20,13 @@ KeysTotal DWORD 0               ; number of keys in the maze
 
 .code
 ;-----------------------------------------------------
+GetCell PROC USES ebx esi
+;
 ; Reads one character from the row-major maze.
 ; Receives: DH = row, DL = column
 ; Returns: AL = character (EAX changed)
 ; Requires: row < MazeRows, column < MazeCols
 ;-----------------------------------------------------
-GetCell PROC USES ebx esi
     mov al,dh
     mov bl,MazeCols
     mul bl                     ; AX = row * MazeCols; DX unchanged
@@ -37,12 +38,13 @@ GetCell PROC USES ebx esi
 GetCell ENDP
 
 ;-----------------------------------------------------
+SetCell PROC USES eax ebx ecx esi
+;
 ; Writes one character into the row-major maze.
 ; Receives: DH = row, DL = column, AL = character
 ; Returns: nothing; preserves all registers
 ; Requires: row < MazeRows, column < MazeCols
 ;-----------------------------------------------------
-SetCell PROC USES eax ebx ecx esi
     mov cl,al                  ; save the character before MUL
     mov al,dh
     mov bl,MazeCols
@@ -54,11 +56,14 @@ SetCell PROC USES eax ebx ecx esi
     ret
 SetCell ENDP
 
+;-----------------------------------------------------
+FindPlayer PROC USES eax ebx ecx edi
+;
 ; Finds the start position and replaces its marker with floor.
 ; Receives: nothing
 ; Returns: nothing; preserves all registers
 ; Requires: at most one StartChar in MazeData
-FindPlayer PROC USES eax ebx ecx edi
+;-----------------------------------------------------
     mov edi,OFFSET MazeData
     mov ecx,MazeRows * MazeCols
     mov al,StartChar
@@ -76,11 +81,14 @@ PlayerNotFound:
     ret
 FindPlayer ENDP
 
+;-----------------------------------------------------
+CountKeys PROC USES ecx esi
+;
 ; Counts key characters in the maze and stores the total.
 ; Receives: nothing
 ; Returns: nothing; preserves all registers
 ; Requires: MazeData contains MazeRows * MazeCols bytes
-CountKeys PROC USES ecx esi
+;-----------------------------------------------------
     mov KeysTotal,0
     mov esi,OFFSET MazeData
     mov ecx,MazeRows * MazeCols

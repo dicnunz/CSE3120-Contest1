@@ -1,4 +1,4 @@
-; Maze Game                                        (Main.asm)
+; Maze Game                                       (Main.asm)
 
 ; Program Description: Main module of a text maze game. The player
 ;   collects every key and reaches the exit before running out of moves.
