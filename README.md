@@ -9,6 +9,10 @@ Team members:
 - Nicholas Dunzelman
 - Nicholas Welsh
 
+## Presentation
+
+[View the CSE3120 Contest 1 slides (Google Slides)](https://docs.google.com/presentation/d/1lNFzhRjkyFnnKSIejULHoy_b6QqkRIUTleLN3jwzAak/edit)
+
 ## How to play
 
 Move with w (up), a (left), s (down) and d (right). Press q to quit.
